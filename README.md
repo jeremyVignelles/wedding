@@ -1,22 +1,17 @@
 # Screenshots
 
-![Login page](screenshots/entree-du-site-code.jpg)
+<div align="center">
+  <img width="300" alt="Login page" src="screenshots/entree-du-site-code.jpg">
+  <img width="300" alt="Menu page on desktop" src="screenshots/menu-desktop.png">
+  <img height="300" alt="Menu page on smartphone" src="screenshots/menu-smartphone.jpg">
+  <img width="300" alt="Useful information room" src="screenshots/salle-infos-pratiques.png">
+  <img width="300" alt="Dialogs examples" src="screenshots/exemple-de-dialogue.png">
+  <img width="300" alt="Inscription room" src="screenshots/salle-inscription.png">
+  <img width="300" alt="Inscription form" src="screenshots/rsvp.png">
+  <img width="300" alt="Contact room" src="screenshots/salle-contact.png">
+  <img width="300" alt="Contact page" src="screenshots/contact.png">
+</div>
 
-![Menu page on desktop](screenshots/menu-desktop.png)
-
-![Menu page on smartphone](screenshots/menu-smartphone.jpg)
-
-![Useful information room](screenshots/salle-infos-pratiques.png)
-
-![Dialogs examples](screenshots/exemple-de-dialogue.png)
-
-![Inscription room](screenshots/salle-inscription.png)
-
-![Inscription form](screenshots/rsvp.png)
-
-![Contact room](screenshots/salle-contact.png)
-
-![Contact page](screenshots/contact.png)
 
 # Wedding website
 
