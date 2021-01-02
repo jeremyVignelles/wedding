@@ -1,0 +1,123 @@
+@page
+@model TableMapModel
+@{
+    Layout = "_ZoomableSvgLayout";
+    ViewData["Title"] = "Plan de table";
+}
+
+@section style {
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      nav ul
+      {
+        background: black;
+        color:white;
+        list-style : none;
+        margin-top:0;
+        margin-bottom:0;
+        display: flex;
+        justify-content: flex-start; 
+      }
+
+      .admin-nav ul li.active
+      {
+        background:#d4af37;
+        color: black;
+        font-weight: bold;
+      }
+
+      nav ul li
+      {
+        display: inline-block;
+        padding:1em;
+      }
+
+      nav ul li a
+      {
+        text-decoration: none;
+        color:white;
+        font-weight: bold;
+      }
+
+      .error {
+        color : red;
+        font-weight: bold;
+      }
+
+      #table-detail {
+        display:none;
+      }
+
+      .wine-icon, .food-warning-icon, .chair-food-instructions {
+        display:none; /* hidden until .wine or .food-warning is applied */
+      }
+
+      .wine .wine-icon, .food-warning .food-warning-icon {
+        display: inline-block;
+        height: 0.8em;
+        margin: 0.1em;
+      }
+
+      .food-warning .chair-food-instructions {
+        display: block;
+      }
+
+      @@media print {
+        @@page {
+          size: landscape;
+        }
+
+        #table-map-form {
+          display: none;
+        }
+
+        #table-detail {
+          display:block;
+          display:flex;
+          flex-direction: row;
+        }
+
+        #table-detail .table {
+          width: 12.5%;
+          margin: 0;
+          padding: 5px;
+        }
+
+        .child::after {
+          content: "*";
+        }
+      }
+
+    </style>
+}
+
+@section nav {
+  <admin-menu active-page="tablemap"></admin-menu>
+}
+
+@section aside {
+  <form id="table-map-form" method="post">
+    <p>Invités: <span id="invited-count"></span></p>
+    <p>Placés: <span id="seated-count"></span></p>
+    <p>Restants: <span id="remaining-count"></span></p>
+    
+  </form>
+  <div id="table-detail"></div>
+}
+
+@section script {
+  <script type="module">
+    import {TableMap} from '/js/tablemap.js';
+
+    const tables = @Html.Raw(Json.Serialize(this.Model.Tables));
+    const guests = @Html.Raw(Json.Serialize(this.Model.Guests));
+    new TableMap(tables, guests);
+  </script>
+}

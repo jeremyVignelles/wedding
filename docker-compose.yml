@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+    wedding:
+        image: wedding
+        env_file: /data/wedding/env
+        volumes:
+            - /data/wedding/data:/data
+        deploy:
+            labels:
+                - "traefik.http.routers.wedding.rule=Host(`wedding.cube45.fr`)"
+                - "traefik.http.routers.wedding.tls.certResolver=default"
+                - "traefik.http.services.wedding.loadbalancer.server.port=80"
+                - "traefik.enable=true"
+                - "traefik.http.routers.wedding_http.rule=Host(`wedding.cube45.fr`)"
+                - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+                - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+                - "traefik.http.routers.wedding_http.middlewares=https_redirect"
+networks:
+    default:
+        external: true
+        name: proxy_internal

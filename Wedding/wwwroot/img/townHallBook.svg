@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" width="347px" height="230px" viewBox="-25 -11 347 230">
+  <title>Livre de la Mairie</title>
+  <style>
+    svg {
+      overflow: hidden;
+      touch-action: none;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+    }
+
+		@font-face
+		{
+			font-family: 'cursive';
+			src: url('/css/cursive_standard.ttf');
+		}
+
+    text { alignment-baseline: text-before-edge; dominant-baseline: text-before-edge; pointer-events: none; font-family:"cursive"; font-size: 9px; }
+
+    .right-page { transform: translate(149px, 0); }
+
+    .double-page, .hidden {display: none;} 
+    
+    .double-page.current {display: block;}
+
+    .bold {font-weight:bold;}
+
+    .italic {font-style: italic;}
+
+    .navigation-button {cursor: pointer;}
+    .navigation-button rect { fill: #4285F4; x: 0; y: 0; width: 20px; height: 20px;}
+    .navigation-button:hover rect {fill: #62A5FF;}
+}}
+    
+    </style>
+    <g>
+        <rect x="-10" y="-1" width="317" height="212" fill="#7f6953" />
+
+        <g class="left-page">
+          <rect x="0" y="0" width="148" height="210" fill="#efdac6" stroke="#7f6953" stroke-width="1px" />
+        </g>
+        <g class="right-page">
+          <rect x="0" y="0" width="148" height="210" fill="#efdac6" stroke="#7f6953" stroke-width="1px" />
+        </g>
+    </g>
+
+    <g class="double-page current">
+        <g class="left-page">
+          <image xlink:href="/img/logo.svg" x="10" y="10" width="128" height="128" />
+          <text x="10" y="155">En l'an de grâce 2020, un terrible</text>
+          <text x="10" y="170">virus a causé une crise sanitaire</text>
+          <text x="10" y="185">dans le monde.</text>
+        </g>
+        <g class="right-page">
+          <text x="10" y="10">Aurélie et Jérémy avaient raison d'y</text>
+          <text x="10" y="25">croire. En effet, malgré cet événement</text>
+          <text x="10" y="40">des plus stressants, ils ont pu</text>
+          <text x="10" y="55">célébrer leur mariage (ils furent eux</text>
+          <text x="10" y="70">aussi masqués suite à l'annonce du</text>
+          <text x="10" y="85">nouveau 1er ministre).</text>
+          <image xlink:href="/img/roadmap/mairie_olivet.jpg" x="10" y="107" width="128" />
+        </g>
+    </g>
+    <g class="double-page">
+        <g class="left-page">
+          <text x="10" y="10">C'est avec une grande joie que les</text>
+          <text x="10" y="25">futurs mariés ont attendu <tspan class="bold">vers</tspan> </text>
+          <image xlink:href="/img/clock.png" x="120" y="25" width="10"/>
+          <text x="10" y="40"><tspan class="bold">14h45</tspan>, </text>
+          <image xlink:href="/img/calendar.png" x="40" y="40" width="10"/>
+          <text x="54" y="40"> le <tspan class="bold">08 Août 2020</tspan>,</text>
+          <text x="10" y="55">leurs invités pour des retrouvailles,</text>
+          <text x="10" y="70"><tspan class="bold">devant la mairie d'Olivet.</tspan> La plupart</text>
+          <text x="10" y="85">des invités se seraient garés sur</text>
+          <text x="10" y="100">le parking de la petite borde.</text>
+          <image xlink:href="/img/parking-sationnement-olivet.png" x="30" y="117" width="90"/>
+        </g>
+        <g class="right-page">
+          <text x="10" y="10">Pendant qu'une <tspan class="bold">vingtaine de personnes</tspan></text>
+          <text x="10" y="25">assistaient masquées à la <tspan class="bold">cérémonie</tspan>,</text>
+          <text x="10" y="40"><tspan class="bold">civile, les autres</tspan> ont pu profiter du</text>
+          <text x="10" y="55"><tspan class="bold">Parc du Poutyl</tspan> (juste à côté).</text>
+          <text x="10" y="70">Aurélie et Jérémy étaient heureux de</text>
+          <text x="10" y="85">tous les retrouver à la <tspan class="bold">sortie de</tspan>.</text>
+          <text x="10" y="100"><tspan class="bold">la mairie</tspan> vers <tspan class="bold">15h30</tspan></text>
+          <image xlink:href="/img/roadmap/parc_du_poutyl.JPG" x="8" y="115" width="130"/>
+          <text x="10" y="190"><tspan class="italic">Parc du Poutyl, à côté de la Mairie.</tspan></text>
+        </g>
+    </g>
+    <g class="double-page">
+      <g class="left-page">
+        <image x="10" y="10" xlink:href="/img/townHall.png" width="10"/>
+        <text x="24" y="10">Après la cérémonie civile, les</text>
+        <text x="10" y="25">mariés retrouvèrent leurs invités en</text>
+        <text x="10" y="40">plein coeur de la Sologne. Nous</text>
+        <text x="10" y="55">avons d'ailleurs retrouvé cette photo</text>
+        <text x="10" y="70">dans les archives de leur mariage,</text>
+        <text x="10" y="85">on ne sait toujours pas qui étaient</text>
+        <text x="10" y="100">ces 2 personnes.</text>
+        <image xlink:href="/img/doc-and-marty.jpg" x="8" y="115" width="130"/>
+      </g>
+      <g class="right-page">
+        <image xlink:href="/img/to-be-continued.png" x="8" y="30" width="130"/>
+      </g>
+    </g>
+
+    <g>
+      <g id="navigation-left" class="navigation-button hot-area hidden" style="transform: translate(-20px, 95px)">
+        <rect></rect>
+        <image xlink:href="/img/left-arrow.png" x="5" y="5" width="10" height="10" />
+      </g>
+      <g id="navigation-right" class="navigation-button hot-area" style="transform: translate(297px, 95px)">
+        <rect></rect>
+        <image xlink:href="/img/right-arrow.png" x="5" y="5" width="10" height="10" />
+      </g>
+    </g>
+</svg>

@@ -1,0 +1,13 @@
+# This is an example file for environment variables that are set on the production container through the docker-compose.yml file
+
+DOTNET_DataFolder=/data
+DOTNET_Admin__User=root
+# Generated with Microsoft.AspNetCore.Identity.PasswordHasher<string>(null, "pass")
+#See the PasswordHashGenerator in this repository
+DOTNET_Admin__Password=AQAAAAEAACcQAAAAEKVVbJJwH4KesfaaHcVGC/JdGpsAyeY45Or9DCAZXyvgv43AgGobvOFyymrcq+4XmQ==
+DOTNET_Contact__GroomMail=test@test.org
+DOTNET_Contact__GroomPhone=0600000000
+DOTNET_Contact__BrideMail=test@test.org
+DOTNET_Contact__BridePhone=0600000000
+DOTNET_Contact__PostalAddress=Dans le placard sous l'escalier\n42 Avenue du Monkey Test\n01337 Hill Valley
+DOTNET_Contact__WeddingPlanner=Wedding Planner

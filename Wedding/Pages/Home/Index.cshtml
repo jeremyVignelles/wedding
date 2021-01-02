@@ -1,0 +1,12 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Accueil";
+    Layout = "_GameLayout";
+}
+
+@section preload {
+    <link rel="preload" href="~/img/sprites_outdoor.png" as="image">
+}
+
+<script type="module" src="/js/home.js"></script>

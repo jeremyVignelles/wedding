@@ -1,0 +1,118 @@
+@page
+@model DinnerModel
+@{
+    ViewData["Title"] = "Administration";
+}
+<admin-menu active-page="dinner"></admin-menu>
+
+<h1>Admin</h1>
+<div class="invitations-stats">
+  <div class="invitations">
+    <h2>Nombre de présents pour le dîner :</h2>
+    <table>
+      <tbody>
+        <tr>
+          <th>Adultes</th>
+          <td id="adults"></td>
+        </tr>
+        <tr>
+          <th>0-2 ans</th>
+          <td id="babies-number"></td>
+        </tr>
+        <tr>
+          <th>3-6 ans</th>
+          <td id="children-3-6"></td>
+        </tr>
+        <tr>
+          <th>7-10 ans</th>
+          <td id="children-7-10"></td>
+        </tr>
+        <tr>
+          <th>11-16 ans</th>
+          <td id="teens-11-16"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="invited-for">
+    <h2>Alcool :</h2>
+    <ul>
+      <li>Oui: <span id="alcohol-yes"></span></li>
+      <li>Non: <span id="alcohol-no"></span></li>
+      <li>?: <span id="alcohol-null"></span></li>
+    </ul>
+  </div>
+</div>
+  <!--Grid Component-->
+  <zing-grid id="datagrid" theme="default" filter sort>
+      <zg-colgroup>
+          <zg-column index="name" header="Nom Prénom">
+          </zg-column>
+          <zg-column index="comment" header="Commentaire">
+          </zg-column>
+          <zg-column index="age" header="Âge" type="select" type-select-options="0-2 ans, 3-6 ans, 7-10 ans, 11-16 ans, Adulte">
+          </zg-column>
+          <zg-column index="alcohol" header="Alcool?" type="select" type-select-options="?, oui, non">
+          </zg-column>
+          <zg-column index="foodInstructions" header="Instructions alimentaires">
+          </zg-column>
+      </zg-colgroup>
+    </zing-grid>
+  <!--Script Reference-->
+  <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+
+<script>
+    const guests = @Html.Raw(Json.Serialize(this.Model.Guests));
+
+    const datagrid = document.getElementById("datagrid");
+    const ageStrings = [
+      "0-2 ans",
+      "3-6 ans",
+      "7-10 ans",
+      "11-16 ans",
+      "Adulte"
+    ];
+
+    const agesInvitations = [[0,0], [0,0], [0,0], [0,0], [0,0]];
+    const agesTd = [
+      document.getElementById("babies-number"),
+      document.getElementById("children-3-6"),
+      document.getElementById("children-7-10"),
+      document.getElementById("teens-11-16"),
+      document.getElementById("adults"),
+    ];
+    
+    const alcoholSpans = [
+      document.getElementById("alcohol-yes"),
+      document.getElementById("alcohol-no"),
+      document.getElementById("alcohol-null"),
+    ];
+
+    let alcoholAggregations = [0,0,0];
+
+    var transformedGuests = guests.map(g => {
+      let ageString = ageStrings[g.age];
+      agesInvitations[g.age][(g.willComeFor === null)? 1 : 0]++;
+      alcoholAggregations[(g.willComeFor === null) ? 2 : (g.alcohol ? 0 : 1)]++;
+
+      return {
+        name: g.lastName + " " + g.firstName,
+        comment: g.comment, 
+        age: ageString, 
+        alcohol: (g.willComeFor === null) ? "?" : (g.alcohol ? "oui" : "non"),
+        foodInstructions: g.foodInstructions
+      }
+    });
+
+    for(let l = 0; l < agesInvitations.length; l++)
+    {
+      agesTd[l].innerText = agesInvitations[l][0] + (agesInvitations[l][1] != 0 ? `(+${agesInvitations[l][1]}?)` : "");
+    }
+
+    for(let alcohol = 0; alcohol < alcoholAggregations.length; alcohol++)
+    {
+      alcoholSpans[alcohol].innerText = alcoholAggregations[alcohol];
+    }
+
+    datagrid.setAttribute('data', JSON.stringify(transformedGuests));
+</script>

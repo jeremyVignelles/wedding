@@ -1,0 +1,431 @@
+@page
+@model Roadmap2Model
+@{
+    ViewData["Title"] = "Carnet de route 2 - le retour";
+}
+
+<style type="text/css">
+*  {
+    box-sizing: border-box;
+}
+
+body {
+    margin-top: 50px;
+}
+
+main {
+    max-width: 1250px;
+    margin:auto;
+}
+
+nav 
+{
+    background: #4285F4;
+    padding: 5px;
+    height: 40px;
+}
+
+nav a:first-child
+{
+    margin-right: 10px;
+}
+
+.note {
+    font-style: italic;
+}
+
+.from-south, .from-highway, .from-town-hall {
+    display:none;
+}
+
+.show {
+    display:block;
+}
+
+.from-selector {
+    display:flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-bottom:30px;
+}
+
+.select-from {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: solid #ccc 1px;
+    width: 302px;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.select-from p
+{
+    font-weight: bold;
+    text-align: center;
+}
+
+.select-from.active {
+    border: solid #333 1px;
+    box-shadow: black 2px 2px;
+}
+
+.step
+{
+    border-bottom: 1px solid black;
+    padding-bottom: 30px;
+    break-inside: avoid;
+}
+
+.step img
+{
+    max-width: 100%;
+}
+
+.step .flex
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.break-before
+{
+    page-break-before: always;
+}
+
+@@media print {
+    body {
+        margin-top: 0;
+    }
+
+    .noprint {
+        display:none;
+    }
+
+    .select-from {
+        display:none;
+    }
+
+    .select-from.active {
+        display:block;
+    }
+}
+
+</style>
+
+<nav class="noprint"><a href="/Home/Infos"><!--Retour--><img src="/img/roadmap/left-arrow.png" alt="flèche retour" /></a> <a id="print-btn" style="display:none" href="javascript:window.print()"><!--Imprimer cette page--><img src="/img/roadmap/print_icon.png" alt="icône imprimer"/></a></nav>
+
+<main>
+    <h1>Carnet de route 2 - le retour</h1>
+
+    <div class="note">
+        <p>Perdus ? Pas de panique ! Appellez @Model.NoPanickNumber</p>
+    </div>
+
+    <p class="noprint">
+        Suite à divers travaux sur la route, <a href="/Home/Roadmap">l'ancienne carte</a> avait besoin d'être mise à jour.
+        Nous vous proposons sur cette page des itinéraires qui évitent les travaux
+        et relativement simples pour arriver sans encombres aux lieux de rendez-vous.
+    </p>
+
+    <p class="note">Si vous utilisez un GPS, il est probable qu'il vous donne des chemins différents. Nos itinéraires sont conçus pour:</p>
+    <ul>
+        <li>&Ecirc;tre un bon compromis entre le temps de parcours et la simplicité des directions</li>
+        <li>&Eacute;viter les travaux estivaux, assez nombreux sur Olivet.</li>
+        <li>&Eacute;viter les nombreux feux rouges qui pourraient couper le cortège, mais feront découvrir la spécialité locale : le rond-point.</li>
+    </ul>
+
+    <h2>Vers la mairie d'Olivet</h2>
+
+    <p>
+        Le parking de la mairie d'Olivet étant occupé par des travaux et les voitures de nombreux baigneurs profitant
+        de la piscine du parc du Poutyl par ce bel après-midi ensoleillé, il est plus stratégique d'aller se garer sur le parking
+        à l'arrière de la mairie, plus méconnu.
+        (Note: le marié, Olivetain de naissance, a découvert l'existence de ce parking deux semaines avant le mariage.
+        C'est vraiment bien caché.)
+    </p>
+
+    <p>Votre destination est donc <b>Le parking de la petite borde</b>,<br />
+    rue Théophile Jourdan<br />
+    45160 Olivet<br />
+    GPS: 47°51'53.0"N 1°53'52.1"E
+    </p>
+
+    <p>Le rendez-vous est à <strong>14h45</strong> devant la mairie pour ceux qui veulent nous voir avant de rentrer dans la mairie, ou à <strong>15h20</strong> devant la mairie pour nous accueillir à la <strong>sortie de la mairie</strong>. Un petit chemin permet d'accéder à la mairie depuis le fond du parking.</p>
+
+    <h3>Vous venez de...</h3>
+
+    <div class="from-selector">
+        <div class="select-from active" id="select-from-south">
+            <p>De La Ferté-St-Aubin / Du Novotel d'Orléans la Source</p> 
+            <img src="/img/roadmap/previews/from-south.png" alt="Itinéraire google maps depuis le sud" />
+        </div>
+        <div class="select-from" id="select-from-highway">
+            <p>De l'autoroute A71, sortie Olivet</p>
+            <img src="/img/roadmap/previews/from-highway.png" alt="Itinéraire google maps depuis la A71" />
+        </div>
+        <div class="select-from" id="select-from-town-hall">
+            <p>D'ailleurs...</p>
+            <img src="/img/roadmap/previews/from-town-hall.png" alt="Itinéraire google maps depuis ailleurs" />
+        </div>
+    </div>
+
+    <a class="from-south noprint" href="https://www.google.fr/maps/dir/Rue+Honor%C3%A9+de+Balzac,+45100+Orl%C3%A9ans/47.8645851,1.8980534/@@47.8322785,1.8843021,13z/data=!4m14!4m13!1m10!1m1!1s0x47e4e6b1a9bd9263:0x935e45866882e24c!2m2!1d1.9286277!2d47.8143054!3m4!1m2!1d1.8774331!2d47.8403501!3s0x47e4e5c38fed615d:0x7e4426e534f7a097!1m0!3e0">Voir l'itinéraire sur google maps</a>
+    <a class="from-highway noprint" href="https://www.google.fr/maps/dir/47.8407424,1.8694196/47.8645851,1.8980534/@@47.8516628,1.8741111,14z/data=!4m2!4m1!3e0">Voir l'itinéraire sur google maps</a>
+    <a class="from-town-hall noprint" href="https://www.google.fr/maps/dir/47.8663641,1.8978608/47.8645684,1.8981041/@@47.8654,1.898917,17z/data=!4m3!4m2!3e0!5i1">Voir l'itinéraire sur google maps</a>
+
+    <div class="step from-south">
+        <p>Dirigez-vous vers Orléans, puis, à partir du rond-point du Novotel</p>
+        <div class="flex">
+            <img src="/img/roadmap/aller/01-aller.jpg" alt="novotel"/>
+        </div>
+    </div>
+
+    <div class="step from-south">
+        <p>Prenez la direction de l'A71, Fontainebleau, Montargis, Orléans</p>
+        <div class="flex">
+            <img src="/img/roadmap/aller/01-aller.png" alt="directions"/>
+        </div>
+    </div>
+    <div class="step from-south">
+        <p>Après l'hôpital et la caserne de pompiers, sortez à droite vers A71 (A10) (A19)</p>
+        <!--Photo étape 2 et 2 bis-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/02-aller.png" alt="direction A71"/>
+        </div>
+    </div>
+    <div class="step from-south">
+        <p>Suivez les panneaux vers A71</p>
+        <!--Photo 3-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/03-aller.png" alt="Suivez les panneaux vers A71"/>
+        </div>
+    </div>
+    <div class="step from-south">
+        <p>Continuez vers A71 jusqu'au rond point pendant 2.7km (les sorties "Olivet" précédentes mènent soit vers plein de feux, soit vers des travaux)</p>
+        <!--Photo 4-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/04-aller.png" alt="continuez vers A71 jusqu'au rond point"/>
+        </div>
+    </div>
+    <div class="step from-highway">
+        <p>Sortez de l'Autoroute A71 à la sortie 2, Olivet</p>
+        <div class="flex">
+            <img src="/img/roadmap/aller/01-highway.jpg" alt="Péage A71"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway">
+        <p>Au rond point, prenez la sortie "St Hilaire St Mesmin, Olivet"</p>
+        <!--Photo 5-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/05-aller.jpg" alt="au rond point sortez à St Hilaire St Mesmin, Olivet"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway">
+        <p>Au rond point, continuez tout droit vers Olivet centre</p>
+        <!--Photo 6-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/06-aller.jpg" alt="Au rond point, continuez tout droit vers Olivet Centre"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway">
+        <p>Passez devant la chapelle de Noras</p>
+        <!--Photo chapelle-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/06-bis-aller.jpg" alt="chapelle de Noras"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway">
+        <p>Au rond point, prenez à gauche vers Olivet centre</p>
+        <!--Photo 7 et 7bis-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/07-aller.jpg" alt="Au rond point, prenez à gauche vers Olivet Centre"/>
+            <img src="/img/roadmap/aller/07-bis-aller.jpg" alt="Au rond point, prenez à gauche vers Olivet Centre"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway">
+        <p>Au rond point, prenez tout droit vers OLIVET-Centre</p>
+        <!--Photo 8 et 8 bis-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/08-aller.jpg" alt="Au rond point, prenez tout droit vers OLIVET-Centre"/>
+            <img src="/img/roadmap/aller/08-bis-aller.jpg" alt="Au rond point, prenez tout droit vers OLIVET-Centre"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway">
+        <p>Continuez tout droit sur le petit rond point vers Orléans, Olivet centre ville</p>
+        <!--Photo 9 et 9 bis-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/09-aller.jpg" alt="Continuez tout droit sur le petit rond point vers Orléans, Olivet centre ville"/>
+            <img src="/img/roadmap/aller/09-bis-aller.jpg" alt="Continuez tout droit sur le petit rond point vers Orléans, Olivet centre ville"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway">
+        <p>En arrivant sur le dos d'âne, tournez à gauche, rue des Capucines</p>
+        <!--Photo 10 et 10 bis-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/10-aller.jpg" alt="En arrivant sur le dos d'âne, tournez à gauche, rue des Capucines"/>
+            <img src="/img/roadmap/aller/10-bis-aller.jpg" alt="En arrivant sur le dos d'âne, tournez à gauche, rue des Capucines"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway">
+        <p>Prenez la 1ère à droite, rue Théophile Jourdan</p>
+        <!--Photo 11-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/11-aller.jpg" alt="Prenez la 1ère à droite, rue Théophile Jourdan"/>
+        </div>
+    </div>
+    <div class="step from-town-hall">
+        <p>Rendez-vous devant la mairie d'Olivet, puis tournez à gauche vers "Centre ville"</p>
+        <!--Photo mairie dans la rue entre le parking et le parc du Poutyl-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/01-town-hall.jpg" alt="Rue devant la mairie, tournez à gauche"/>
+        </div>
+    </div>
+    <div class="step from-town-hall">
+        <p>&Agrave; 250m, tournez à droite rue des écoles</p>
+        <!--Photo du trompe l'oeil-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/02-town-hall.jpg" alt="Tournez à droite, rue des écoles"/>
+        </div>
+    </div>
+    <div class="step from-town-hall">
+        <p>Au bout de la rue, tournez à droite (de toute façon, c'est un sens unique)</p>
+        <!--Photo de l'intersection de la rue Théophile Jourdan-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/03-town-hall.jpg" alt="Tournez à droite rue Théophile Jourdan"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway from-town-hall">
+        <p>Devant l'école, tournez à droite vers le parking</p>
+        <!--Photo 12 et 12 bis-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/12-aller.jpg" alt="Devant l'école, tournez à droite vers le parking"/>
+            <img src="/img/roadmap/aller/12-bis-aller.jpg" alt="Devant l'école, tournez à droite vers le parking"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway from-town-hall">
+    <p>Vous êtes arrivés, garez-vous sur ce parking !</p>
+        <!--Photo 13 et 13 bis-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/13-aller.jpg" alt="Vous êtes arrivés, garez-vous sur ce parking !"/>
+            <img src="/img/roadmap/aller/13-bis-aller.jpg" alt="Vous êtes arrivés, garez-vous sur ce parking !"/>
+        </div>
+    </div>
+    <div class="step from-south from-highway from-town-hall">
+        <p>Empruntez le chemin qui longe la mairie à pied pour arriver au lieu de Rendez-vous.</p>
+        <!--Photo 14-->
+        <div class="flex">
+            <img src="/img/roadmap/aller/14-aller.jpg" alt="Empruntez le chemin qui longe la mairie à pied pour arriver au lieu de Rendez-vous."/>
+        </div>
+    </div>
+    <div class="note">
+        <p>
+            Si le parking est plein, ressortez du parking, et faites le tour en tournant toujours la première à droite.
+            Vous devriez voir le Parking Jourdan, quelques places sur le côté de la bibliothèque,
+            puis repasser devant la mairie (on sait jamais, essayez le parking de la mairie, mais j'en doute),
+            Il y a quelques places dans la rue après, puis à droite, rue des écoles (zone bleue principalement).
+        </p>
+    </div>
+    <h2 class="break-before">Vers le domaine de la Devantiere</h2>
+    <div class="step">
+        <p>
+            En partant de la mairie, nous essaierons de partir en cortège jusqu'au domaine de la Devantière.
+            Toutefois, il est probable que le cortège soit rompu à un moment donné, et les instructions suivantes pourront vous être utiles.
+        </p>
+        <p>
+            Votre destination: <b>La Devantière - Domaine de Beauvais</b><br />
+            Route de Ménestreau<br />
+            45240 La Ferté Saint-Aubin<br />
+            Loiret, Centre Val-de-Loire, France, Planète Terre, Système Solaire, Voie Lactée, Univers<br />
+            GPS : 47°42'37.6"N 1°57'36.3"E
+            <br><a class="noprint" href="https://www.google.fr/maps/dir/47.8645684,1.8981041/La+Devanti%C3%A8re,+Route+de+Menestreau,+La+Fert%C3%A9-Saint-Aubin/@@47.7822078,1.8968045,12z/data=!4m14!4m13!1m5!3m4!1m2!1d1.8771144!2d47.8402179!3s0x47e4e5c3a5054643:0x91f5d5e496898d24!1m5!1m1!1s0x47e4de6df391c77b:0x7c6e40778505bc3d!2m2!1d1.9602804!2d47.7105681!3e0">Voir l'itinéraire sur google maps</a>
+        </p>
+    </div>
+    <div class="step">
+        <p>En sortant du parking, prenez à droite rue Théophile Jourdan.</p>
+        <!--Image street view sortie parking. Attention, y'en a une plus récente que d'autres (bâtiment en plus)-->
+        <div class="flex">
+            <img src="/img/roadmap/retour/01-retour.png" alt="En sortant du parking, prenez à droite rue Théophile Jourdan."/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Au bout de la rue, tournez à gauche.</p>
+        <!--Image street view-->
+        <div class="flex">
+            <img src="/img/roadmap/retour/02-retour.png" alt="Au bout de la rue, tournez à gauche."/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Au feu, continuez tout droit pendant 850m, puis tournez à droite au petit rond-point</p>
+        <!--Image petit rond-point, on doit avoir pris une photo de ça.-->
+        <div class="flex">
+            <img src="/img/roadmap/retour/03-retour.png" alt="tournez à droite au petit rond-point"/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Au rond point, continuez tout droit vers A71</p>
+        <!--Photo panneau A71 au rond point-->
+        <div class="flex">
+            <img src="/img/roadmap/retour/04-retour.png" alt="Au rond point, continuez tout droit vers A71"/>
+            <img src="/img/roadmap/retour/04-bis-retour.png" alt="Au rond point, continuez tout droit vers A71"/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Au rond point, tournez légèrement à droite vers A71</p>
+        <!--Photo panneau A71 au rond point 2-->
+        <div class="flex">
+            <img src="/img/roadmap/retour/05-retour.png" alt="Au rond point, tournez légèrement à droite vers A71"/>
+            <img src="/img/roadmap/retour/05-bis-retour.png" alt="Au rond point, tournez légèrement à droite vers A71"/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Continuez 1.5km, puis, au rond point suivant continuez vers A71</p>
+        <!--Photo rond point/panneau-->
+        <div class="flex">
+            <img src="/img/roadmap/retour/06-retour.png" alt="Continuez 1.5km, puis, au rond point suivant continuez vers A71"/>
+            <img src="/img/roadmap/retour/06-bis-retour.png" alt="Continuez 1.5km, puis, au rond point suivant continuez vers A71"/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Au rond-point de l'entrée de l'autoroute, Tourner à gauche vers Orléans - la source, Ardon - limère</p>
+        <!--Photo street view rond-point-->
+        <div class="flex">
+            <img src="/img/roadmap/retour/07-retour.jpg" alt="Au rond-point de l'entrée de l'autoroute, Tourner à gauche vers Orléans - la source, Ardon - limère"/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Au bout de 2.7 km, utilisez la voie de droite pour continuez vers Vierzon/La ferté saint aubin</p>
+        <!--On doit pouvoir réutiliser une des photos de notre sortie du soir à cet endroit là, sinon street view-->
+        <div class="flex">
+            <img src="/img/roadmap/retour/08-retour.png" alt="Au bout de 2.7 km, utilisez la voie de droite pour continuez vers Vierzon/La ferté saint aubin"/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Insérez-vous sur la RD2020, puis continuez pendant 2.2km, jusqu'au rond point suivant, où vous continuerez tout droit vers La ferté saint Aubin. (10 km)</p>
+        <div class="flex">
+            <img src="/img/roadmap/rond_point_novotel.jpg" alt="Rond point du Novotel direction la Ferté"/>
+        </div>
+    </div>
+    <div class="step">
+        <p>A l'église ⛪, <strong>tournez à gauche</strong> 👈 sur <strong>Route de Menestreau</strong>.</p><p> Continuez 🛣️ sur Route de Menestreau pendant 1,6 km.</p>
+        <div class="flex">
+            <img src="/img/roadmap/tournez_a_gauche_a_leglise_laferte.jpg" alt="Tournez à gauche à l'église de La Ferté-St-Aubin"/>
+        </div>
+    </div>
+    <div class="step">
+        <p>Le <a href="http://www.ladevantiere.fr/" target="_blank"><strong>domaine de la Devantière</strong></a> se trouve <strong>sur votre droite</strong> 👉, face à la forêt</p>
+        <div class="flex">
+            <img src="/img/roadmap/entree_devantiere.jpg" alt="Entrée vers le parking de la Devantière"/>
+        </div>
+    </div>
+    <div class="note">
+        <p>Perdus ? Pas de panique ! Appellez @Model.NoPanickNumber</p>
+    </div>
+</main>
+<script type="module" src="/js/roadmap2.js"></script>

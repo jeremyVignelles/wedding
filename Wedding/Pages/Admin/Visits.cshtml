@@ -1,0 +1,76 @@
+@page
+@model VisitsModel
+@{
+    ViewData["Title"] = "Visites";
+
+    var alreadyVisitedCount = this.Model.Households.Count(h => h.LastPageVisit.Any());
+}
+<admin-menu active-page="visits"></admin-menu>
+<h1>Admin</h1>
+
+<div class="invitations-stats">
+  <div class="invitations">
+    <h2>Statut des visites</h2>
+    <table>
+      <tbody>
+        <tr>
+          <th>Aucune visite:</th>
+          <td>@(Model.Households.Length - alreadyVisitedCount)</td>
+        </tr>
+        <tr>
+          <th>Déjà visité:</th>
+          <td>@alreadyVisitedCount</td>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <td>@Model.Households.Length</td>
+        </tr>
+    </table>
+  </div>
+</div>
+  <!--Grid Component-->
+  <zing-grid id="datagrid" theme="default" filter sort>
+      <zg-colgroup>
+          <zg-column index="name" header="Foyer">
+          </zg-column>
+          <zg-column index="Index" header="Index">
+          </zg-column>
+          <zg-column index="Infos" header="Informations">
+          </zg-column>
+          <zg-column index="TownHallBook" header="Mairie">
+          </zg-column>
+          <zg-column index="Roadmap" header="Roadmap">
+          </zg-column>
+          <zg-column index="Roadmap2" header="Roadmap2">
+          </zg-column>
+          <zg-column index="InscriptionRoom" header="Pièce inscription">
+          </zg-column>
+          <zg-column index="Inscription" header="Inscription">
+          </zg-column>
+          <zg-column index="Contact" header="Contact">
+          </zg-column>
+          <zg-column index="Konami" header="Pièce secrète">
+          </zg-column>
+      </zg-colgroup>
+    </zing-grid>
+  <!--Script Reference-->
+  <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+
+<script>
+    var households = @Html.Raw(Json.Serialize(this.Model.Households));
+    var datagrid = document.getElementById("datagrid");
+
+    var data = households.map(h => {
+        var result = {
+            name: h.name
+        };
+
+        for(let prop of Object.keys(h.lastPageVisit))
+        {
+          result[prop] = h.lastPageVisit[prop].substring(0, 10) + " " + h.lastPageVisit[prop].substring(11, 19);
+        }
+        return result;
+    });
+
+    datagrid.setAttribute('data', JSON.stringify(Object.values(data)));
+</script>

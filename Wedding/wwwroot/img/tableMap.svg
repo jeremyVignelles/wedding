@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" x="0px" y="0px" width="1700px" height="650px" viewBox="0 0 1700 650">
+  <title>Plan de table</title>
+  <style>
+    svg {
+      overflow: hidden;
+      touch-action: none;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+    }
+    text { pointer-events: none; }
+    .furniture { fill: #fff; stroke: #000; stroke-width: 1px; }
+    .chair-text {text-anchor: middle; alignment-baseline: middle; dominant-baseline: middle; font-size: 12pt;}
+    .chair-guest-name-text {text-anchor: middle; alignment-baseline: middle; dominant-baseline: middle; font-size: 6pt;}
+    .chair-wine-icon, .chair-food-warning-icon { display:none; /* hidden until .wine or .food-warning is applied */}
+    .wine .chair-wine-icon, .food-warning .chair-food-warning-icon { display: block; }
+    .filled { fill: rgba(0, 255, 0, 0.1); }
+    .child.filled { fill: rgba(0, 0, 0, 0.2); }
+    </style>
+    <g>
+        <rect class="furniture" x="0" y="200" width="51" height="195" />
+    </g>
+</svg>

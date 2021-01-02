@@ -1,0 +1,127 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+<form id="login" method="post">
+    <div id="code" class="@((this.Model.Message != null) ? "error":"")">
+        <input type="text" asp-for="Code1" />
+        <input type="text" asp-for="Code2" />
+        <input type="number" asp-for="Code3" />
+        <input type="number" asp-for="Code4" />
+    </div>
+</form>
+<style>
+* {
+    box-sizing: border-box;
+}
+body 
+{
+    margin: 0;
+}
+
+#login
+{
+    position: absolute;
+    margin:auto;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width:450px;
+    height:450px;
+    max-width: 100%;
+    max-height: 100%;
+    background: url('/img/login.png');
+    background-position: center bottom;
+}
+
+#code
+{
+    position: absolute;
+    width: 120px;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: flex;
+}
+
+@@media screen and (max-height: 110px)
+{
+    #login
+    {
+        background-position: center -340px;
+    }
+
+    #code
+    {
+        top:0px;
+        bottom: unset;
+    }
+}
+
+input
+{
+    border: solid black 2px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.error
+{
+    outline: solid #DD0000 5px;
+}
+
+</style>
+
+<script>
+let inputs = document.getElementsByTagName('input');
+
+for(let i = 0; i < 4; i++)
+{
+    const iCopy = i;
+    inputs[i].addEventListener('input', function() {
+        if(inputs[iCopy].value.length == 1)
+        {
+            if(iCopy < 3)
+            {
+                inputs[iCopy+1].focus();
+            }
+            else
+            {
+                document.getElementById('login').submit();
+            }
+        }
+    });
+
+    if(i > 0)
+    {
+        inputs[i].addEventListener('keydown', function(evt)
+        {
+            if(evt.key == "Backspace" && inputs[iCopy].value.length == 0)
+            {
+                inputs[iCopy - 1].focus();
+            }
+        });
+    }
+}
+
+inputs[0].focus();
+</script>

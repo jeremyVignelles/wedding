@@ -1,0 +1,91 @@
+@page
+@model HouseholdsModel
+@{
+    ViewData["Title"] = "Administration";
+}
+<admin-menu active-page="households"></admin-menu>
+<h1>Admin</h1>
+
+<div class="invitations-stats">
+  <div class="invitations">
+    <h2>Nombre d'invitations à envoyer :</h2>
+    <table>
+      <tbody>
+        <tr>
+          <th>Total</th>
+          <td>@Model.Households.Length</td>
+        </tr>
+        <tr>
+          <th>Envoyées par la poste</th>
+          <td>@Model.Households.Count(h => h.PostalAddress != "")</td>
+        </tr>
+    </table>
+  </div>
+</div>
+  <!--Grid Component-->
+  <zing-grid id="datagrid" theme="default" filter sort>
+      <zg-colgroup>
+          <zg-column index="name" header="Foyer">
+          </zg-column>
+          <zg-column index="postalAddress" header="Adresse Postale">
+          </zg-column>
+          <zg-column index="adults" header="Adultes" type="number">
+          </zg-column>
+          <zg-column index="u16" header="11-16 ans" type="number">
+          </zg-column>
+          <zg-column index="u10" header="7-10 ans" type="number">
+          </zg-column>
+          <zg-column index="u6" header="3-6 ans" type="number">
+          </zg-column>
+          <zg-column index="u2" header="0-2 ans" type="number">
+          </zg-column>
+          <zg-column index="hasReplied" header="A répondu" type="boolean">
+          </zg-column>
+      </zg-colgroup>
+    </zing-grid>
+  <!--Script Reference-->
+  <!--Script Reference-->
+  <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+
+<script>
+    var guests = @Html.Raw(Json.Serialize(this.Model.Guests));
+    var households = @Html.Raw(Json.Serialize(this.Model.Households));
+    var datagrid = document.getElementById("datagrid");
+
+    var householdsIndex = {};
+    for(var h of households)
+    {
+        householdsIndex[h.id] = {
+            name: h.name,
+            postalAddress: h.postalAddress,
+            adults: 0,
+            u2: 0,
+            u6: 0,
+            u10: 0,
+            u16: 0,
+            hasReplied: false
+        };
+    }
+
+    for(var guest of guests)
+    {
+        var age;
+        switch(guest.age)
+        {
+            case 0: age = "u2"; break;
+            case 1: age = "u6"; break;
+            case 2: age = "u10"; break;
+            case 3: age = "u16"; break;
+            case 4: age = "adults"; break;
+            default : throw new Error("Invalid age");
+        }
+
+        householdsIndex[guest.householdId][age]++;
+        if(guest.willComeFor !== null)
+        {
+            householdsIndex[guest.householdId].hasReplied = true;
+        }
+    }
+
+    datagrid.setAttribute('data', JSON.stringify(Object.values(householdsIndex)));
+</script>

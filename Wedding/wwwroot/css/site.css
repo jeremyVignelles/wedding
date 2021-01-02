@@ -1,0 +1,262 @@
+﻿@font-face
+{
+  font-family: triforce;
+  src: url(../triforce/Triforce.ttf);
+}
+
+h1, h2
+{
+  text-align:center;
+  font-family: triforce;
+}
+
+.content
+{
+  margin: auto;
+  height: auto;
+  width: 600px;
+  max-width:100%;
+}
+
+.anchor {
+  position: relative;
+  top: -6em;
+}
+
+nav ul
+{
+  background: black;
+  color:white;
+  list-style : none;
+  margin-top:0;
+  margin-bottom:0;
+  display: flex;
+  justify-content: flex-start; 
+}
+
+.admin-nav ul li.active
+{
+  background:#d4af37;
+  color: black;
+  font-weight: bold;
+}
+
+body 
+{
+  margin-top: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+nav
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.admin-nav
+{
+  z-index: 2;
+}
+
+nav ul li
+{
+  display: inline-block;
+  padding:1em;
+}
+
+nav ul li a
+{
+  text-decoration: none;
+  color:white;
+  font-weight: bold;
+}
+
+.provider-presentation
+{
+  display:flex;
+  /*background:black;*/
+  /*padding:1em;*/
+}
+
+.provider-logo
+{
+  height:120px;
+  padding:1em;
+  border:2px solid black;
+}
+
+.provider-logo
+{
+  background:white;
+}
+
+.provider-vertical-flexbox
+{
+  /*background:white;*/
+  margin-left:1em;
+  padding-left:1em;
+  padding-right:1em;
+  border:2px solid black;
+}
+
+#equipe-de-choc, #mairie-olivet, #parc-poutyl
+{
+  width: 500px;
+  height: auto;
+  margin: auto;
+  display: block;
+}
+
+.devantiere
+{
+  height: 300px;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.back-to-the-future
+{
+  background:rgb(80,78,83);
+}
+
+.back-to-the-future .destination-time
+{
+  background:rgb(80,78,83);
+  border : solid 1px white;
+}
+
+.back-to-the-future .destination-time .label div
+{
+  background:#6d071a;
+  color:white;
+  margin: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.back-to-the-future .destination-time .label, .back-to-the-future .destination-time .display
+{
+  display:flex;
+}
+
+.back-to-the-future .destination-time .display div
+{
+  color: rgb(208,123,82);
+  background:black;
+  padding-left:10px;
+  padding-right:10px;
+  margin:1em;
+}
+
+#COE
+{
+  background:rgb(36,30,32);
+}
+
+.welcome-information p
+{
+  text-align: center;
+}
+
+.welcome-information .groom-and-bride
+{
+  display: flex; 
+  justify-content: center;
+}
+
+.welcome-information #logo
+{
+  width:200px;
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+}
+
+.open-chest-form
+{
+  border: 1px solid #f0c300;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  display: block;
+  width: 200px;
+  background:rgb(154,88,47);
+}
+
+.open-chest-form label
+{
+  display: block;
+  text-align: center;
+  color:rgb(224,226,205);
+}   
+
+.open-chest-form input
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  margin-bottom:1em;
+  width: 50px;
+}
+
+.open-chest-form #open-chest-validation
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background: #f0c300;
+  border: 3px outset #f0c300;
+  /* font-weight: bold; */
+  color: darkslategrey;
+  text-shadow: 0.5px 1px;
+}
+
+.error
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 1em;
+  color:red;
+}
+
+.invitations
+{
+  /*background:red;*/
+  /*display: flex;
+  justify-content: center;*/
+}
+
+.invitations h2, .invited-for h2
+{
+  text-align: left;
+}
+
+.invitations p, .invited-for p 
+{
+  margin: 10px;
+}
+
+.invited-for
+{
+  /*background:green;*/
+  /*display: flex;
+  justify-content: center;*/
+}
+
+.invitations-stats
+{
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
+}
+
+.bold
+{
+  font-weight: bold;
+}

@@ -1,0 +1,57 @@
+@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Contact";
+}
+<h1>Contact</h1>
+<p>Un problème pour l'utilisation du site? Une information à nous communiquer? Contactez-nous!</p>
+
+<div id="individual-contact">
+    <div class="person-contact" id="bride-contact">
+        <img id="bride" src="/img/aurelie.gif" alt="la mariée"/><br />
+        <b>Aurélie RENARD</b><br />
+        <a href="tel:@Model.Contact.BridePhone"><i>@Model.Contact.BridePhone</i></a>
+        <a href="mailto:@Model.Contact.BrideMail"><i>@Model.Contact.BrideMail</i></a>
+    </div>
+    <div class="person-contact" id="groom-contact">
+        <img id="groom" src="/img/jeremy.gif" alt="le marié"/><br />
+        <b>Jérémy VIGNELLES</b><br />
+        <a href="tel:@Model.Contact.GroomPhone"><i>@Model.Contact.GroomPhone</i></a>
+        <a href="mailto:@Model.Contact.GroomMail"><i>@Model.Contact.GroomMail</i></a>
+    </div>
+</div>
+<h2>Adresse Postale</h2>
+<div id="couple-address">@Model.Contact.PostalAddress</div>
+
+<style>
+    .person-contact {
+        border: solid black 1px;
+        margin: 5px;
+        padding: 5px;
+        text-align:center;
+    }
+        
+    .person-contact a {
+        padding: 0.5em;
+        margin: 0.25em;
+        display: block;
+    }
+
+    @@media screen and (min-width:600px)
+    {
+        #individual-contact {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+        }
+
+        .person-contact {
+            flex: 1;
+        }
+    }
+
+    #couple-address {
+        white-space: pre;
+        text-align: center;
+    }
+</style>

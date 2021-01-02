@@ -1,0 +1,19 @@
+@page
+@model AdminLoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+<div>
+    @Model.Message
+</div>
+<form method="post">
+    <label asp-for="UserName"></label>
+    <div>
+        <input asp-for="UserName" />
+    </div>
+    <label asp-for="Password"></label>
+    <div>
+        <input asp-for="Password" />
+    </div>
+    <button>Log in</button>
+</form>

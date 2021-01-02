@@ -1,0 +1,113 @@
+@page
+@model RoadmapModel
+@{
+    Layout = "_ZoomableSvgLayout";
+    ViewData["Title"] = "Carnet de route";
+}
+
+@section style {
+    <style>
+        nav {
+            background: #4285F4;
+            padding: 5px;
+            height: 40px;
+        }
+
+        nav a:first-child
+        {
+            margin-right: 10px;
+        }
+
+        .landmark-info 
+        {
+            display:none;
+        }
+
+        p
+        {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        p.center
+        {
+            text-align: center;
+        }
+
+        #magicarpe
+        {
+            max-height: 300px;
+            max-width: 215px;
+        }
+
+        .landmark-info a
+        {
+            color: white
+        }
+
+        @@media screen 
+        {
+            .landmark-info.current 
+            {
+                display:block;
+            }
+
+            .landmark-info p
+            {
+                margin-left: 1em;
+                margin-right: 1em;
+            }
+
+            #no-click
+            {
+                display: block;
+            }
+        }
+
+        @@media print
+        {
+            .landmark-info.print 
+            {
+                display: block;
+                break-inside: avoid;
+                border-bottom: solid #888 1px;
+            }
+        }
+    </style>
+}
+
+@section nav {
+    <nav><a href="/Home/Roadmap2"><!--Retour--><img src="/img/roadmap/left-arrow.png" alt="flèche retour" /></a> <a id="print-btn" style="display:none" href="javascript:window.print()"><!--Imprimer cette page--><img src="/img/roadmap/print_icon.png" alt="icône imprimer"/></a></nav>
+}
+
+@section aside {
+    <div class="landmark-info" id="no-click"><p><strong>Cliquez</strong> sur les <strong>cercles rouges</strong> sur la <strong>carte</strong> pour plus d'informations.</p><p>Vous pouvez <strong>zoomer</strong> sur la carte pour voir plus facilement les détails (molette de la souris ou avec 2 doigts) et vous <strong>déplacer</strong> avec la souris ou un doigt.</p><p>Vous pouvez imprimer la feuille de route en cliquant sur le bouton avec l'imprimante.</p></div>
+    <div class="landmark-info" id="info-h-parc-poutyl"><p>Parc du Poutyl</p><p class="center"><img src="/img/roadmap/parc_du_poutyl.JPG" alt="parc du Poutyl - Olivet" /></p></div>
+    <div class="landmark-info" id="info-h-parking"><p>Parking, point de départ.</p><p class="center"><img src="/img/roadmap/parking_mairie.jpg" alt="Parking avant de la mairie d'Olivet"/></p></div>
+    <div class="landmark-info print" id="info-h-mairie"><p><strong>Mairie d'Olivet</strong></p><p>283 Rue du Général de Gaulle<br>45160 Olivet</p><p class="center"><img src="/img/roadmap/mairie_olivet.jpg" alt="façade de la mairie d'Olivet"/></p></div>
+    <div class="landmark-info print" id="info-h-rue-source"><p><strong>Continuez tout droit ☝️</strong> vers Orléans-la Source, S<sup>t</sup> Cyr en Val</p><p class="center"><img src="/img/roadmap/rue_source.jpg" alt="Prendre tout droit"/></p></div>
+    <div class="landmark-info print" id="info-h-1er-rond-point"><p>Au <strong>rond-point</strong>, prenez la <strong>2<sup>ème</sup> sortie</strong> comme indiqué avec la flèche rouge. (presque tout droit ☝️)</p><p class="center"><img src="/img/roadmap/1er_rond-point.jpg" alt="Tout droit au rond point"/></p></div>
+    <div class="landmark-info" id="info-h-magicarpe"><p>Magicarpe 🐟, pokémon eau 💧</p><p class="center"><img id="magicarpe" src="/img/roadmap/carte_magicarpe.png" alt="carte pokemon magicarpe"/></p></div>
+    <div class="landmark-info" id="info-h-tram"><p>Ceci est un tramway 🚎.</p><p class="center"><img src="/img/roadmap/Tramway_Orleans_Victor_Hugo.jpg"  alt="tramway"/></p></div>
+    <div class="landmark-info print" id="info-h-rond-point-tram"><p>Au <strong>rond-point du tramway</strong>, tournez <strong>à droite 👉</strong> (1<sup>ère</sup> sortie).</p><p class="center"><img src="/img/roadmap/rond_point_tramway.jpg" alt="rond point du tramway" /></p></div>
+    <div class="landmark-info" id="info-h-lakitu"><p>Lakitu le feu tricolore 🚦 dans ...?</p><p class="center"><img src="/img/roadmap/lakitu_info.jpg"/></p></div>
+    <div class="landmark-info" id="info-h-archette"><p>Clinique de l'Archette 🏥</p><p class="center"><img src="/img/roadmap/clinique-archette.jpg" alt="Clinique de l'Archette - Olivet"/></p></div>
+    <div class="landmark-info" id="info-h-parc-larry"><p>Parc du Larry</p><p class="center"><img src="/img/roadmap/parc-du-larry.jpg" alt="parc du Larry - Olivet"/></p></div>
+    <div class="landmark-info print" id="info-h-carrefour-archette"><p>Au <strong>1<sup>er</sup> feu 🚦</strong> tournez <strong>à gauche 👈</strong>.</p><p class="center"><img src="/img/roadmap/feu_direction_clinique_archette_tournez_a_gauche.jpg" alt="Feu tricolore direction gauche"/></p></div>
+    <div class="landmark-info print" id="info-h-rondpoint-angle-parc"><p>A l'angle du parc, au <strong>petit rond-point</strong>, tournez <strong>à droite 👉</strong>.</p><p class="center"><img src="/img/roadmap/petit_rond_point_angle_parc.jpg" alt="petit rond-point"/></p></div>
+    <div class="landmark-info print" id="info-h-rue-chapelet"><p>Prendre la <strong>1<sup>ère</sup> rue à gauche</strong> 👈, <strong>"Rue du Docteur Chapelet".</strong></p><p class="center"><img src="/img/roadmap/rue_du_docteur_chapelet.jpg" alt="Tournez à gauche rue du dr Chapelet"/></p></div>
+    <div class="landmark-info print" id="info-h-rond-point"><p>Au <strong>rond-point</strong>, suivre <strong>"RD2020, Vierzon"</strong></p><p class="center"><img src="/img/roadmap/vers_RD2020.jpg" alt="rond-point vers RD2020 Vierzon"/></p></div>
+    <div class="landmark-info print" id="info-h-belle-croix"><p><strong>Serrez à gauche</strong> 👈 pour suivre la <strong>D2020</strong> vers ⭕ Vierzon, La Ferté S<sup>t</sup> Aubin, Ardon...</p><p class="center"><img src="/img/roadmap/serrez_a_gauche_voie_insertion.jpg" alt="serrer à gauche dans la voie d'insertion"/></p></div>
+    <div class="landmark-info" id="info-h-chro"><p>🏥 CHR d'Orléans</p><p class="center"><img src="/img/roadmap/chr_orleans.jpg" alt="Hôpital de La Source"/></p></div>
+    <div class="landmark-info print" id="info-h-rond-point-novotel"><p>Au <strong>rond-point du Novotel</strong>, continuez <strong>vers Bourges, Vierzon, La Ferté S<sup>t</sup> A</strong>.</p><p class="center"><img src="/img/roadmap/rond_point_novotel.jpg" alt="Rond point du Novotel direction la Ferté"/></p></div>
+    <div class="landmark-info" id="info-h-chateau-la-ferte"><p><a href="https://www.chateau-ferte.com/" target="_blank">🏰 Château de La Ferté-Saint-Aubin</a>.</p><p> 🚧 Début de construction : fin du XVI<sup>ème</sup> siècle</p><p class="center"><img src="/img/roadmap/chateau_la_ferte_st_aubin.jpg" alt="Château de La Ferté-St-Aubin"/></p></div>
+    <div class="landmark-info" id="info-h-eglise"><p>⛪ Eglise Saint-Aubin.</p><p>🚧 Début de la construction : XI<sup>ème</sup> siècle.</p><p class="center"><img src="/img/roadmap/eglise_st_aubin.jpg" alt="Eglise St Aubin à La Ferté-St-Aubin"/></p></div>
+    <div class="landmark-info print" id="info-h-carrefour-eglise"><p>A l'église ⛪, <strong>tournez à gauche</strong> 👈 sur <strong>Route de Menestreau</strong>.</p><p> Continuez 🛣️ sur Route de Menestreau pendant 1,6 km.</p><p class="center"><img src="/img/roadmap/tournez_a_gauche_a_leglise_laferte.jpg" alt="Tournez à gauche à l'église de La Ferté-St-Aubin"/></p></div>
+    <div class="landmark-info" id="info-h-foret"><p>Forêt</p><p class="center"><img src="/img/roadmap/la_foret.jpg" alt="la forêt"/></p></div>
+    <div class="landmark-info print" id="info-h-arrivee"><p>Le <a href="http://www.ladevantiere.fr/" target="_blank"><strong>domaine de la Devantière</strong></a> se trouve <strong>sur votre droite</strong> 👉, face à la forêt</p><p>La Devantière - Domaine de Beauvais<br />Route de Ménestreau<br />45240 La Ferté Saint-Aubin<br />Loiret, Centre Val-de-Loire, France, Planète Terre, Système Solaire, Voie Lactée, Univers<br />GPS : 47°42'37.6"N 1°57'36.3"E</p><p class="center"><img src="/img/roadmap/entree_devantiere.jpg" alt="Entrée vers le parking de la Devantière"/></p></div>
+    <div class="landmark-info" id="info-h-cocktail"><p>Un petit rafraîchissement 🥂 pour fêter notre union 💑 ?</p><p class="center"><img src="/img/roadmap/cocktail.jpg" alt="place au cocktail" /></p></div>
+}
+
+@section script
+{
+    <script type="module" src="/js/roadmap.js"></script>
+}

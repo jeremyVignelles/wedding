@@ -1,0 +1,211 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Administration";
+}
+
+<admin-menu active-page="guests"></admin-menu>
+
+<h1>Admin</h1>
+<div class="invitations-stats">
+  <div class="invitations">
+    <h2>Nombre d'invités :</h2>
+    <table>
+      <tbody>
+        <tr>
+          <th>Adultes</th>
+          <td id="adults"></td>
+        </tr>
+        <tr>
+          <th>0-2 ans</th>
+          <td id="babies-number"></td>
+        </tr>
+        <tr>
+          <th>3-6 ans</th>
+          <td id="children-3-6"></td>
+        </tr>
+        <tr>
+          <th>7-10 ans</th>
+          <td id="children-7-10"></td>
+        </tr>
+        <tr>
+          <th>11-16 ans</th>
+          <td id="teens-11-16"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>Total</th>
+          <td id="invitations-number"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="invited-for">
+    <h2>Invités pour :</h2>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Oui</th>
+          <th>Non</th>
+          <th>?</th>
+          <th>Invités</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Mairie</th>
+          <td id="town-hall-yes"></td>
+          <td id="town-hall-no"></td>
+          <td id="town-hall-null"></td>
+          <td id="town-hall-invitations"></td>
+        </tr>
+        <tr>
+          <th>Cocktail</th>
+          <td id="cocktail-yes"></td>
+          <td id="cocktail-no"></td>
+          <td id="cocktail-null"></td>
+          <td id="cocktail-invitations"></td>
+        </tr>
+        <tr>
+          <th>Dîner</th>
+          <td id="dinner-yes"></td>
+          <td id="dinner-no"></td>
+          <td id="dinner-null"></td>
+          <td id="dinner-invitations"></td>
+        </tr> 
+        <tr>
+          <th>Brunch</th>
+          <td id="brunch-yes"></td>
+          <td id="brunch-no"></td>
+          <td id="brunch-null"></td>
+          <td id="brunch-invitations"></td>
+        </tr>
+      </tbody>
+    </table>
+    <!--<p>Mairie : <span id="town-hall"></span></p>
+    <p>Cocktail : <span id="cocktail"></span></p> 
+    <p>Dîner : <span id="dinner"></span></p>
+    <p>Brunch : <span id="brunch"></span></p>-->
+  </div>
+</div>
+  <!--Grid Component-->
+  <zing-grid id="datagrid" theme="default" filter sort>
+      <zg-colgroup>
+          <zg-column index="name" header="Nom Prénom">
+          </zg-column>
+          <zg-column index="comment" header="Commentaire">
+          </zg-column>
+          <zg-column index="age" header="Âge" type="select" type-select-options="0-2 ans, 3-6 ans, 7-10 ans, 11-16 ans, Adulte">
+          </zg-column>
+          <zg-column index="townHall" header="Mairie" type="select" type-select-options="?, oui, non">
+          </zg-column>
+          <zg-column index="cocktail" header="Cocktail" type="select" type-select-options="?, oui, non">
+          </zg-column>
+          <zg-column index="dinner" header="Dîner" type="select" type-select-options="?, oui, non">
+          </zg-column>
+          <zg-column index="brunch" header="Brunch" type="select" type-select-options="?, oui, non">
+          </zg-column>
+      </zg-colgroup>
+    </zing-grid>
+  <!--Script Reference-->
+  <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+
+<script>
+    const guests = @Html.Raw(Json.Serialize(this.Model.Guests));
+    const households = @Html.Raw(Json.Serialize(this.Model.Households));
+
+    const householdInvitations = {};
+    for(let h of households)
+    {
+      householdInvitations[h.id] = h.invitedFor;
+    }
+
+    const datagrid = document.getElementById("datagrid");
+    const ageStrings = [
+      "0-2 ans",
+      "3-6 ans",
+      "7-10 ans",
+      "11-16 ans",
+      "Adulte"
+    ];
+
+    const agesInvitations = [0, 0, 0, 0, 0];
+    const agesTd = [
+      document.getElementById("babies-number"),
+      document.getElementById("children-3-6"),
+      document.getElementById("children-7-10"),
+      document.getElementById("teens-11-16"),
+      document.getElementById("adults"),
+    ];
+
+    const invitationAggregation = [
+      [0, 0, 0, 0],// Town hall
+      [0, 0, 0, 0],// Cocktail
+      [0, 0, 0, 0],// Dinner
+      [0, 0, 0, 0],// Brunch
+    ];
+
+    const invitationTd = 
+      ["town-hall", "cocktail", "dinner", "brunch"].map(place => 
+        ["yes", "no", "null", "invitations"].map(answer => 
+          document.getElementById(place + "-" + answer)
+        ));
+
+    // The "willComeFor" flags, in the same order as invitationAggregation
+    const placesFlags = [1, 4, 8, 16];
+
+    var transformedGuests = guests.map(g => {
+      let ageString = ageStrings[g.age];
+      agesInvitations[g.age]++;
+
+      for(let i = 0; i < invitationAggregation.length; i++)
+      {
+        if(householdInvitations[g.householdId] & placesFlags[i])
+        {// They are invited for that place
+          invitationAggregation[i][3]++;// Increment total
+          if(g.willComeFor === null)
+          {// Not answered yet
+            invitationAggregation[i][2]++;
+          }
+          else if(g.willComeFor & placesFlags[i])
+          {// Yes!
+            invitationAggregation[i][0]++;
+          }
+          else 
+          {// No!
+            invitationAggregation[i][1]++;
+          }
+        }
+      }
+
+      return {
+        name: g.lastName + " " + g.firstName,
+        comment: g.comment, 
+        age: ageString, 
+        townHall: (g.willComeFor === null) ? "?" : ((g.willComeFor & 1) ? "oui" : "non"),
+        cocktail: (g.willComeFor === null) ? "?" : ((g.willComeFor & 4) ? "oui" : "non"),
+        dinner: (g.willComeFor === null) ? "?" : ((g.willComeFor & 8) ? "oui" : "non"),
+        brunch: (g.willComeFor === null) ? "?" : ((g.willComeFor & 16) ? "oui" : "non")
+      }
+    });
+
+    for(let l = 0; l < agesInvitations.length; l++)
+    {
+      agesTd[l].innerText = agesInvitations[l];
+    }
+
+    //nombre d'invités total
+    var invitationNumberTd = document.getElementById("invitations-number");
+    invitationNumberTd.innerText = guests.length;
+
+    for(let place = 0; place < invitationAggregation.length; place++)
+    {
+      for(let answer = 0; answer < 4; answer++) {
+        invitationTd[place][answer].innerText = invitationAggregation[place][answer];
+      }
+    }
+
+    datagrid.setAttribute('data', JSON.stringify(transformedGuests));
+</script>

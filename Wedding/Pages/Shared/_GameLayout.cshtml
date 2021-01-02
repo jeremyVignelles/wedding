@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>@ViewData["Title"] - Wedding</title>
+    <link rel="stylesheet" href="~/css/game.css" />
+    <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+    <link rel="preload" href="~/js/canvasGame.js" as="script" crossorigin="anonymous">
+    <link rel="preload" href="~/js/keyboardManager.js" as="script" crossorigin="anonymous">
+    <link rel="preload" href="~/js/tools.js" as="script" crossorigin="anonymous">
+    <link rel="preload" href="~/img/character.png" as="image">
+    <link rel="preload" href="~/img/controlsButtons.png" as="image">
+    @RenderSection("preload", false)
+</head>
+<body touch-action="none">
+    <canvas id="canvas"></canvas>
+    <canvas id="controlsCanvas"></canvas>
+    @RenderBody()
+</body>
+</html>

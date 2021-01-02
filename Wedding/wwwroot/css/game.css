@@ -1,0 +1,37 @@
+body {
+    overflow: hidden;
+    touch-action: none;
+    background: #111;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 1400px;
+    height: 800px;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+}
+
+#dialogLink
+{
+    position: absolute;
+    overflow: hidden;
+    background-image: url('/img/buttons.png');
+}
+
+#dialogLink:hover
+{
+    background-position: 0 -100%;
+}
+
+#dialogLink img
+{
+    position: absolute;
+    width: 200%;
+    height: 200%;
+}

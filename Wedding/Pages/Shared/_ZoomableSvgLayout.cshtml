@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>@ViewData["Title"] - Wedding</title>
+    <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+    <link rel="stylesheet" href="~/css/zoomable-svg.css">
+    <link rel="preload" href="~/js/svgManager.js" as="script" crossorigin="anonymous">
+    @RenderSection("style", true)
+</head>
+<body touch-action="none">
+
+@RenderSection("nav", true)
+<div id="map-container">
+    <object touch-action="none" id="map" type="image/svg+xml"></object>
+</div>
+
+<aside>
+    @RenderSection("aside", false)
+</aside>
+
+
+@RenderSection("script", true)
+</body>
+</html>

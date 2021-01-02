@@ -1,0 +1,58 @@
+@page
+@model TownHallBookModel
+@{
+    Layout = "_ZoomableSvgLayout";
+    ViewData["Title"] = "Livre de la Mairie";
+}
+
+@section style {
+    <style>
+        nav {
+            background: #4285F4;
+            padding: 5px;
+            height: 40px;
+        }
+
+        nav a:first-child
+        {
+            margin-right: 10px;
+        }
+
+        aside
+        {
+            display:none;
+        }
+
+        @@media screen 
+        {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+                grid-template-areas:
+                    "nav"
+                    "map";
+            }
+        }
+
+        @@media screen and (max-width:599px)
+        {
+            body 
+            {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+                grid-template-areas:
+                    "nav"
+                    "map";
+            }
+        }
+    </style>
+}
+
+@section nav {
+    <nav><a href="/Home/Infos"><!--Retour--><img src="/img/roadmap/left-arrow.png" alt="flèche retour" /></a></nav>
+}
+
+@section script
+{
+    <script type="module" src="/js/townHallBook.js"></script>
+}

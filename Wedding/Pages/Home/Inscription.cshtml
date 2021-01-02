@@ -1,0 +1,394 @@
+@page
+@model InscriptionModel
+@using Wedding.Models
+@{
+    ViewData["Title"] = "Inscription";
+	var isLocked = (DateTime.Now > new DateTime(2020, 6, 30, 23, 59, 59));
+	var weddingDate = new DateTime(2020, 8, 8);
+}
+<div class="window">
+	<div class="window-content">
+	<a class="closed" href="/Home/InscriptionRoom"></a>
+	<img id="wordart" src="/img/wordart.png" alt="wordart répondre à l'invitation"/>
+	<span id="window-name">RSVP.exe</span>
+	<div class="content">
+		@if(isLocked)
+		{
+			<div class="expired-date">
+				<p>
+					Nous sommes maintenant à J-@Math.Floor((weddingDate - DateTime.Now).TotalDays) du mariage, vous ne pouvez donc plus modifier votre réponse. Si vous souhaitez modifier votre réponse, merci de nous <a href="/Home/Contact">contacter</a>.
+				</p>
+			</div>
+		} else if(Model.ReplySent)
+		{
+			<div class="informations-reply">
+				<p>
+					<span id="validate-reply">Votre réponse a bien été prise en compte.</span>
+					<span id="validate-reply-not-sent" class="hidden">Des modifications de votre réponses sont en cours, veuillez les valider.</span>
+				</p>
+				<p>
+					Vous avez <span class="bold">jusqu'au 30 juin 2020</span> pour modifier le profil de chaque personne du foyer. N'oubliez pas de valider vos réponses avec le bouton prévu à cet effet à la fin du formulaire.
+				</p>
+				<p> 
+					Au-delà de cette date pour toute modification, merci de nous contacter par e-mail ou par téléphone.
+				</p>
+			</div>
+		} else {
+			<div class="informations-no-reply">
+				<p>
+					Vous avez <span class="bold">jusqu'au 30 juin 2020</span> pour <span class="bold">modifier votre réponse</span>. N'oubliez pas de <span class="bold">valider</span> avec le bouton prévu à cet effet à la fin du formulaire.
+				</p>
+				<p> 
+					Au-delà de cette date pour toute modification, merci de nous contacter par e-mail ou par téléphone.
+				</p>
+			</div>
+		}
+		<form id="form" asp-page="Inscription" method="POST">
+			<fieldset @Html.Raw(isLocked ? "disabled=\"disabled\"" : "")>
+			@for(var i=0; i < this.Model.Reply.Length; i++)
+			{
+			<div class="card">
+				<input type="hidden" asp-for="Reply[i].Id"/>
+				<input type="hidden" asp-for="Reply[i].FirstName"/>
+				<input type="hidden" asp-for="Reply[i].LastName"/>
+				<p class="bold">@Model.Reply[i].FirstName @Model.Reply[i].LastName</p>
+				<p>Je viens à :</p>
+				<div class="will-come-for">
+					<div class="will-come-for-column">
+						<label class="will-come-for-label">
+							<input asp-for="Reply[i].TownHall">
+							<span class="fake-control"></span>
+							<img src="/img/town-hall.png" alt="Mairie"/>
+							<span class="underline">M</span>airie
+						</label>
+						<label class="will-come-for-label">
+							<input asp-for="Reply[i].Cocktail">
+							<span class="fake-control"></span>
+							<img src="/img/cocktail.png" alt="cocktail"/>
+							<span class="underline">C</span>ocktail
+						</label>
+					</div>
+					@if(Model.Household.InvitedFor.HasFlag(InvitationType.All))
+					{
+					<div class="will-come-for-column">
+						<label class="will-come-for-label">
+							<input asp-for="Reply[i].Dinner">
+							<span class="fake-control"></span>
+							<img src="/img/dinner.png" alt="Dîner"/>
+							<span class="underline">D</span>îner
+						</label>
+						<label class="will-come-for-label">
+							<input asp-for="Reply[i].Brunch">
+							<span class="fake-control"></span>
+							<img src="/img/brunch.png" alt="Brunch"/>
+							<span class="underline">B</span>runch du lendemain
+						</label>
+					</div>
+					}
+				</div>
+				<div class="alcohol">
+					<div class="alcohol-header">	
+						<img src="/img/cocktail.png" alt="cocktail"/>
+						<p>Avec ou sans alcool ?</p>
+					</div>
+					<label>
+						<input type="radio" asp-for="Reply[i].Alcohol" value="false">
+						<span class="fake-control"></span>
+						<span class="underline">S</span>ans alcool
+					</label>
+					<label>
+						<input type="radio" asp-for="Reply[i].Alcohol" value="true">
+						<span class="fake-control"></span>
+						<span class="underline">A</span>vec alcool
+					</label>
+				</div>
+				<div class="food-instructions">
+					<img src="/img/dinner.png" alt="Dîner"/>
+					<label asp-for="Reply[i].FoodInstructions">Allergies alimentaires, aliments non souhaités :</label>
+					<textarea asp-for="Reply[i].FoodInstructions" rows="4" cols="70" placeholder="Des allergies à des aliments, des aliments que vous n'aimez pas ou que vous ne pouvez pas consommer ?
+C'est ici qu'il faut nous le dire."></textarea>
+				</div>
+			</div>
+			}
+			@if(!isLocked)
+			{
+				<button id="submit" type="submit"><span>Valider mes réponses</span></button>
+			}
+			</fieldset>
+		</form>
+		<canvas id="clippy"></canvas>
+	</div>
+	</div>
+</div>
+<style>
+		@@font-face
+		{
+			font-family: triforce;
+			src: url(/triforce/Triforce.ttf);
+		}
+
+		body
+		{
+			margin: 0;
+			background: #FFF;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		.window
+		{
+			border-top: 60px solid;
+			border-left: 50px solid;
+			border-right: 60px solid;
+			border-bottom: 8px solid;
+			border-image: url(/img/windows-border.png);
+			border-image-slice: 60 60 8 50;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+
+		.closed
+		{
+			height: 42px; 
+			width: 42px;
+			display: block;
+			position: fixed; 
+			top: 12px;
+			right: 12px;
+		}
+
+		#window-name 
+		{
+			color: white;
+			position: fixed;
+			top: 23px;
+			left: 50px;
+		}
+
+		.window-content
+		{
+			position: absolute;
+			top: 0;
+			/* our left and right borders have 42 and 52 extra blank px on each side*/
+			left: -42px;
+			right: -52px;
+			bottom: 0;
+			overflow: auto;
+			height: 100%;
+		}
+
+		#wordart
+		{
+			margin-left: auto; 
+			margin-right: auto; 
+			display: block;
+			margin-top: 1em;
+			margin-bottom: 1em;
+		}
+
+		.underline
+		{
+			text-decoration: underline;
+		}
+
+		fieldset
+		{
+			border: none;
+			margin: 0;
+			padding: 0;
+			max-width: 100%;
+		}
+
+		.content p, label
+		{
+			font-family: 'Arial', sans-serif; 
+		}
+
+		input[type="checkbox"], input[type="radio"]
+		{
+			display:none;
+		}
+
+		.fake-control
+		{
+			display: inline-block;
+			width: 13px;
+			height: 13px;
+			background-image: url(/img/xp_controls.png);
+			background-position-y:0;
+		}
+
+		input[type="radio"]+.fake-control
+		{
+			background-position-x: -200%;
+		}
+
+		label:hover .fake-control
+		{
+			background-position-y: -100%;
+		}
+
+		label:active .fake-control
+		{
+			background-position-y: -200%;
+		}
+
+		input[type="checkbox"]:checked+.fake-control
+		{
+			background-position-x: -100%;
+		}
+
+		input[type="radio"]:checked+.fake-control
+		{
+			background-position-x: -300%;
+		}
+
+		.card
+		{
+			border: 1px solid black;
+			/*background: beige;*/
+			background: rgb(239,239,222);
+			padding:1em;
+			width:100%;
+			max-width: 100%;
+			margin:30px;
+			margin-left: auto; 
+			margin-right: auto;
+			display: block;
+		}
+
+		.bold
+		{
+			font-weight: bold;
+		}
+
+		img
+		{
+			height: 48px;
+			vertical-align: middle;
+		}
+
+		.informations-no-reply, .informations-reply, .expired-date
+		{
+			border: 1px solid black;
+			max-width: calc(100% - 10px);
+			padding: 1em;
+			margin-left: auto; 
+			margin-right: auto;
+			display: block;
+		}
+
+		.informations-no-reply, .expired-date
+		{
+			background: pink;
+		}
+
+		#validate-reply
+		{
+			background: lightgreen;
+		}
+
+		#validate-reply-not-sent
+		{
+			background: lightsalmon;
+		}
+
+		.hidden {
+			display:none;
+		}
+
+		.will-come-for-column
+		{
+			display: flex;
+    		justify-content: space-around;
+		}
+
+		.will-come-for-label
+		{
+			flex:1;
+		}
+
+		.alcohol
+		{
+			padding-top: 1em;
+			padding-bottom: 1em;
+		}
+
+		.alcohol-header
+		{
+			display: flex;
+			align-items: center;
+			padding-bottom: 10px;
+		}
+
+		.alcohol-header img, .food-instructions img
+		{
+			height: 30px;
+		}
+
+		textarea
+		{
+			width: 100%;
+		}
+
+		#submit
+		{
+			float:right;
+			margin-bottom: 30px;
+			cursor: pointer;
+			background: linear-gradient(#b3cef3, #6989e2);
+			border: 1px solid #003973;
+			border-radius: 5px;
+			position:relative;
+			padding: 3px;
+			outline: 0;
+		}
+
+		#submit span
+		{
+			display:block;
+			width: 100%;
+			height: 100%;
+			border-radius: 3px;
+			padding: 10px;
+			background: linear-gradient(#fdfdfd, #C9C8DC);
+		}
+
+		#submit:hover, #submit:focus
+		{
+			background: linear-gradient(#f9dc9c, #e68c02);
+		}
+
+		#submit:active
+		{
+			padding: 0;
+		}
+
+		#submit:active span
+		{
+			border-radius: 0;
+			background: #d8d8cf;
+			padding: 13px;
+		}
+
+		form
+		{
+			max-width: calc(100% - 10px); 
+			display: block; 
+			margin-left: auto; 
+			margin-right: auto;
+		}
+
+		#clippy
+		{
+			position: fixed;
+			bottom: 20px;
+			left: 20px;
+			width: 124px;
+			height: 93px;
+		}
+	</style>
+<script type="module" src="/js/inscription.js"></script>

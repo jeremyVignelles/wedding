@@ -1,0 +1,16 @@
+{
+  "name": "wedding",
+  "version": "1.0.0",
+  "description": "The wedding front-end resources",
+  "main": "index.ts",
+  "author": "Aurélie et Jérémy",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  }
+}
