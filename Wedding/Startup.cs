@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,6 +34,10 @@ namespace Wedding
                 options.Conventions.AddPageRoute("/Home/Index", "/");
                 options.Conventions.AuthorizeFolder("/Admin", "AdminAuthPolicy");
                 options.Conventions.AuthorizeFolder("/Home", "GuestAuthPolicy");
+            })
+            .AddViewOptions(options =>
+            {
+                options.HtmlHelperOptions.FormInputRenderMode = FormInputRenderMode.AlwaysUseCurrentCulture;
             });
             services.Configure<ForwardedHeadersOptions>(options => options.ForwardedHeaders = ForwardedHeaders.All);
             services.AddHealthChecks();
@@ -132,7 +137,7 @@ namespace Wedding
                 
                 await next();
             });
-            app.UseOpenApi().UseSwaggerUi3();
+            app.UseOpenApi().UseSwaggerUi();
         }
     }
 }

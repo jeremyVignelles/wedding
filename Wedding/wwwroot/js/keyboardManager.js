@@ -38,21 +38,21 @@ let buttonPressed = {
     zoomMinus: [],
 };
 const codes = {
-    37: ActionKey.left,
-    39: ActionKey.right,
-    38: ActionKey.up,
-    40: ActionKey.down,
-    90: ActionKey.up,
-    81: ActionKey.left,
-    83: ActionKey.down,
-    68: ActionKey.right,
-    65: ActionKey.a,
-    66: ActionKey.b,
-    13: ActionKey.start,
-    107: ActionKey.zoomPlus,
-    109: ActionKey.zoomMinus,
-    187: ActionKey.zoomPlus,
-    54: ActionKey.zoomMinus,
+    37: ActionKey.left, //left arrow
+    39: ActionKey.right, //right arrow
+    38: ActionKey.up, //top arrow
+    40: ActionKey.down, //bottom arrow
+    90: ActionKey.up, //z key
+    81: ActionKey.left, //q key
+    83: ActionKey.down, //s key
+    68: ActionKey.right, //d key
+    65: ActionKey.a, //A key
+    66: ActionKey.b, //B key
+    13: ActionKey.start, //enter key
+    107: ActionKey.zoomPlus, //+ key (numeric pad)
+    109: ActionKey.zoomMinus, //- key (numeric pad)
+    187: ActionKey.zoomPlus, //+ equal key
+    54: ActionKey.zoomMinus, //- minus key of 6
 };
 export function isKeyPressed(key) {
     return keyPressed[key] || (buttonPressed[key].length > 0);

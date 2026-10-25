@@ -37,7 +37,7 @@ We made this project in less than a year, in our free time, with the following c
 
 ## The stack
 
-- ASP.net core 3.1
+- ASP.NET Core (.NET 10) (originally asp.net core 3.1)
 - Vanilla JS with Canvas API, PointerEvents and SVG
 - Zing Grid for admin tables
 - https://github.com/jquery/PEP (because I was using a version of Firefox for Android that didn't support pointer events at the time.)
@@ -79,7 +79,7 @@ Nous avons réalisé ce projet en moins d'un an, sur notre temps libre, avec les
 
 ## La stack
 
-- ASP.net core 3.1
+- ASP.NET Core (.NET 10) (à l'origine, asp.net core 3.1)
 - Vanilla JS avec Canvas API, PointerEvents et SVG
 - Zing Grid pour les tableaux d'administration
 - https://github.com/jquery/PEP (parce que j'utilisait une version de firefox pour Android qui ne supportait pas les pointer events à l'époque.)

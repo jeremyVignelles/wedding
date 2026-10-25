@@ -94,10 +94,14 @@ input[type=number] {
 <script>
 let inputs = document.getElementsByTagName('input');
 
+console.log(inputs);
+
 for(let i = 0; i < 4; i++)
 {
     const iCopy = i;
     inputs[i].addEventListener('input', function() {
+        
+        console.log(iCopy, inputs[iCopy].value);
         if(inputs[iCopy].value.length == 1)
         {
             if(iCopy < 3)

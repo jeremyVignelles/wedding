@@ -26,7 +26,7 @@ class HomeGame extends CanvasGame {
             maxX: 50,
             maxY: 12,
             // Computed in the ctor
-            x: 0,
+            x: 0, // == minX, but we need to pass a rect to some functions.
             y: 0,
             width: 0,
             height: 0,
@@ -67,8 +67,8 @@ class HomeGame extends CanvasGame {
         ];
         this.pathBounds = {
             minX: -5,
-            maxX: 28,
-            width: 0,
+            maxX: 28, //this.houses.length*10-2
+            width: 0, //Computed in constructor
         };
         this.enterHouseOverlayOpacity = 0;
         this.redirected = false;

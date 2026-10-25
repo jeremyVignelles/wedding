@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "enabledManagers": ["dockerfile", "docker-compose", "nuget", "npm"],
+  "packageRules": [
+    {
+      "description": "Group minor and patch updates together",
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "minor and patch updates"
+    }
+  ]
+}

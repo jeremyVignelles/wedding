@@ -1,3 +1,4 @@
+"use strict";
 let items = {
     "from-south": Array.apply(null, document.querySelectorAll(".from-south")),
     "from-highway": Array.apply(null, document.querySelectorAll(".from-highway")),

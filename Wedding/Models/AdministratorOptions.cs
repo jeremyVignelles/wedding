@@ -12,6 +12,6 @@ namespace Wedding.Models
         /// <summary>
         /// The hashed password
         /// </summary>
-        public string Password { get; set; } = "AQAAAAEAACcQAAAAEKVVbJJwH4KesfaaHcVGC/JdGpsAyeY45Or9DCAZXyvgv43AgGobvOFyymrcq+4XmQ==";
+        public string Password { get; set; } = "AQAAAAIAAYagAAAAEC7FBMERp0anvoQw1f+KH7kUAPmvCEwADrFKXVALp8PKVnX2oPu+nB1No1yRfH9yHA==";
     }
 }

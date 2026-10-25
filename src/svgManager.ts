@@ -10,7 +10,7 @@ export class SvgManager {
     minZoom:number;
     maxZoom:number;
 
-    loaded: Promise<never>;
+    loaded: Promise<void>;
 
     constructor(file:string, container: HTMLObjectElement, minZoom: number, maxZoom: number, onClick?:(id:string) => void)
     {
@@ -18,7 +18,7 @@ export class SvgManager {
         this.maxZoom = maxZoom;
         this.onClick = onClick;
         this.container = container;
-        this.loaded = new Promise<never>((resolve, reject) => {
+        this.loaded = new Promise<void>((resolve, reject) => {
             this.container.addEventListener('load', () => {
                 this.svgDoc = this.container.contentDocument;
                 this.attachPanZoomEvents();

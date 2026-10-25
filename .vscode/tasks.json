@@ -7,11 +7,12 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Wedding.csproj",
+                "${workspaceFolder}/Wedding/Wedding.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": { "kind": "build", "isDefault": true }
         },
         {
             "label": "publish",
@@ -19,7 +20,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Wedding.csproj",
+                "${workspaceFolder}/Wedding/Wedding.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,11 +33,25 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/Wedding.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "--project",
+                "${workspaceFolder}/Wedding/Wedding.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "npm: build",
+            "type": "npm",
+            "script": "build",
+            "path": "src/",
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "npm: watch",
+            "type": "npm",
+            "script": "watch",
+            "path": "src/",
+            "isBackground": true,
+            "problemMatcher": "$tsc-watch"
         }
     ]
 }

@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
-        "lib": ["es2015", "dom"],
+        "lib": ["es2017", "dom"],
         "outDir": "../Wedding/wwwroot/js",
-        "module": "es2015",
-        "moduleResolution": "node",
+        "module": "es2022",
+        "moduleResolution": "bundler",
         "target": "es2017",
-        "noImplicitAny": true,
+        "newLine": "lf",
+        "strict": false,
+        "noImplicitAny": true
     },
     "files": [
         "tools.ts",

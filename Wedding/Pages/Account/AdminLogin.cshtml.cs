@@ -48,8 +48,8 @@ namespace Wedding.Pages.Account
         {
             if (UserName == admin.Value.User)
             {
-                var passwordHasher = new PasswordHasher<string?>();
-                if (passwordHasher.VerifyHashedPassword(null, admin.Value.Password, Password) == PasswordVerificationResult.Success)
+                var passwordHasher = new PasswordHasher<string>();
+                if (passwordHasher.VerifyHashedPassword(UserName, admin.Value.Password, Password) == PasswordVerificationResult.Success)
                 {
                     var claims = new List<Claim>
                     {

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PasswordHashGenerator/PasswordHashGenerator.csproj" />
+  <Project Path="Wedding/Wedding.csproj" />
+</Solution>

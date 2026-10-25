@@ -35,7 +35,7 @@ namespace Wedding.Pages.Home
 
         public async Task<ActionResult> OnGetAsync()
         {
-            var householdClaim = this.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
+            var householdClaim = this.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier) ?? throw new InvalidOperationException("Household claim not found");
             var householdId = int.Parse(householdClaim.Value);
             var h = (await this.householdRepository.GetByIdAsync(householdId));
             if(h is null)

@@ -76,7 +76,10 @@
                 if (fileVersion == this._repositoryUpgrader.LatestVersion)
                 {
                     // Direct deserialization
-                    this.Model.Data.AddRange(JsonSerializer.Deserialize<IEnumerable<T>>(dataArray.GetRawText()));
+                    var data = JsonSerializer.Deserialize<IEnumerable<T>>(dataArray.GetRawText());
+                    if (data != null) {
+                        this.Model.Data.AddRange(data);
+                    }
                 }
                 else if(fileVersion < this._repositoryUpgrader.LatestVersion)
                 {

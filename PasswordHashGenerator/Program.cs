@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore.Identity;
 
 namespace PasswordHashGenerator
@@ -10,7 +10,7 @@ namespace PasswordHashGenerator
         {
             var passwordHasher = new PasswordHasher<string>();
             var password = Console.ReadLine();
-            Console.WriteLine(passwordHasher.HashPassword(null, password));
+            Console.WriteLine(passwordHasher.HashPassword(string.Empty, password));
         }
     }
 }
